@@ -4,10 +4,10 @@ import AddTask from './Components/AddTask';
 import SearchTask from './Components/SearchTask';
 import Content from './Components/Content';
 import Footer from './Components/Footer';
-import fetchData from './fetchData';
+import apiRequest from './apiRequest';
 
 function App() {
-  const API_URL = 'http://localhost:5000/tasks'; // here we are using the local json server to store our data
+  const API_URL = 'http://localhost:5000/tasks';
 
   const [tasks, setTasks] = useState([]);
   const [newTask, setNewTask] = useState('');
@@ -46,7 +46,7 @@ function App() {
       body: JSON.stringify(myNewTask),
     };
 
-    const result = await fetchData(API_URL, postOptions);
+    const result = await apiRequest(API_URL, postOptions);
     if (result) {
       setFetchError(result);
     }
@@ -66,7 +66,7 @@ function App() {
     };
 
     const reqUrl = `${API_URL}/${id}`;
-    const result = await fetchData(reqUrl, updateOptions);
+    const result = await apiRequest(reqUrl, updateOptions);
     if (result) {
       setFetchError(result);
     }
@@ -78,7 +78,7 @@ function App() {
 
     const deleteOptions = { method: 'DELETE' };
     const reqUrl = `${API_URL}/${id}`;
-    const result = await fetchData(reqUrl, deleteOptions);
+    const result = await apiRequest(reqUrl, deleteOptions);
     if (result) {
       setFetchError(result);
     }
@@ -93,7 +93,7 @@ function App() {
 
   return (
     <div className='App'>
-      <Header title={'To do list'} />
+      <Header title={'TO DO LIST'} />
       <AddTask
         newTask={newTask}
         setNewTask={setNewTask}

@@ -1,5 +1,4 @@
 import React from 'react';
-
 import TaskList from './TaskList.jsx';
 
 const Content = ({ tasks, handleCheck, handleDelete }) => (
