@@ -31,6 +31,8 @@
     "webpack-merge": "^5.8.0"
   },
   "devDependencies": {
+    "@pmmmwh/react-refresh-webpack-plugin": "^0.5.10",
+    "react-refresh": "^0.14.0",
     "webpack-dev-server": "^4.11.1"
   }
 }
