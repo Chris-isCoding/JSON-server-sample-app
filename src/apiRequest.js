@@ -1,4 +1,4 @@
-const fetchData = async (url = '', optionsObj = null) => {
+const apiRequest = async (url = '', optionsObj = null) => {
   try {
     const response = await fetch(url, optionsObj);
     if (!response.ok) {
@@ -10,4 +10,4 @@ const fetchData = async (url = '', optionsObj = null) => {
   }
 };
 
-export default fetchData;
+export default apiRequest;
