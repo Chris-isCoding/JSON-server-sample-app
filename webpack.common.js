@@ -3,7 +3,7 @@ const { ProgressPlugin } = require('webpack');
 const path = require('path');
 
 module.exports = {
-  entry: './index.js',
+  entry: { app: './index.js' },
   output: {
     filename: 'bundle.js',
     path: path.join(__dirname, 'dist'),
@@ -13,7 +13,7 @@ module.exports = {
   stats: {
     preset: 'minimal',
     builtAt: true,
-    entrypoints: true,
+    colors: true,
   },
 
   module: {
@@ -43,7 +43,7 @@ module.exports = {
       filename: 'index.html',
     }),
     new ProgressPlugin(),
-  ],
+  ].filter(Boolean),
 
   resolve: {
     extensions: ['.mjs', '.js', '.jsx', '.ts', '.tsx'],
