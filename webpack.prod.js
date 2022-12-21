@@ -1,3 +1,4 @@
+const path = require('path');
 const { merge } = require('webpack-merge');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 
@@ -8,7 +9,7 @@ const production = merge(common, {
 
   optimization: {
     minimize: true,
-    minimizer: ['...', new MiniCssExtractPlugin()],
+    minimizer: ['...', new MiniCssExtractPlugin()], // "..." used to include default minimizers
   },
 });
 

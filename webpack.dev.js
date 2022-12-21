@@ -1,12 +1,13 @@
 const path = require('path');
 const { mergeWithRules } = require('webpack-merge');
-const common = require('./webpack.common.js');
 const ReactRefreshWebpackPlugin = require('@pmmmwh/react-refresh-webpack-plugin');
+
+const common = require('./webpack.common.js');
 
 const devConfig = {
   mode: 'development',
   devtool: 'inline-source-map',
-
+  plugins: [new ReactRefreshWebpackPlugin()],
   module: {
     rules: [
       {
@@ -23,22 +24,28 @@ const devConfig = {
       },
     ],
   },
-
-  plugins: [new ReactRefreshWebpackPlugin()],
-
   devServer: {
+    port: 8080,
+    host: 'localhost',
+    hot: true,
+    liveReload: false,
     open: true,
+    compress: true,
+    historyApiFallback: true,
     headers: {
       'Access-Control-Allow-Origin': '*',
       'Access-Control-Allow-Headers': '*',
     },
-    port: 8080,
-    hot: true,
-    liveReload: false,
-    static: { directory: path.resolve(__dirname, 'dist') },
-    host: 'localhost',
-    compress: true,
-    historyApiFallback: true,
+    static: {
+      directory: path.resolve(__dirname, 'dist'),
+      publicPath: '/',
+    },
+    proxy: {
+      '/**': {
+        target: 'http://localhost:3000',
+        secure: false,
+      },
+    },
   },
 };
 

@@ -1,21 +1,22 @@
+const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const { ProgressPlugin } = require('webpack');
-const path = require('path');
 
-module.exports = {
+const common = {
   entry: { app: './index.js' },
+
   output: {
-    filename: 'bundle.js',
-    path: path.join(__dirname, 'dist'),
+    filename: '[name].bundle.js',
+    path: path.resolve(__dirname, 'dist'),
+    publicPath: '/',
     clean: true,
   },
-
+  devtool: 'inline-source-map',
   stats: {
     preset: 'minimal',
     builtAt: true,
     colors: true,
   },
-
   module: {
     rules: [
       {
@@ -31,7 +32,7 @@ module.exports = {
         ],
       },
       {
-        test: /\.(s?c|sa)ss$/,
+        test: /\.(s?c|sa)ss$/i,
         exclude: /node_modules/,
         use: ['style-loader', 'css-loader', 'sass-loader'],
       },
@@ -42,10 +43,15 @@ module.exports = {
       template: 'index.html',
       filename: 'index.html',
     }),
-    new ProgressPlugin(),
+    new ProgressPlugin((percentage, _message) => {
+      if (percentage === 1) {
+        console.log('🚀 Build finished! 🚀');
+      }
+    }),
   ].filter(Boolean),
-
   resolve: {
     extensions: ['.mjs', '.js', '.jsx', '.ts', '.tsx'],
   },
 };
+
+module.exports = common;
