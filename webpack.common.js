@@ -1,9 +1,11 @@
 const path = require('path');
+
 const HtmlWebpackPlugin = require('html-webpack-plugin');
-const { ProgressPlugin } = require('webpack');
 
 const common = {
-  entry: { app: './index.js' },
+  entry: {
+    app: path.resolve(__dirname, './index.js'),
+  },
 
   output: {
     filename: '[name].bundle.js',
@@ -42,11 +44,6 @@ const common = {
     new HtmlWebpackPlugin({
       template: 'index.html',
       filename: 'index.html',
-    }),
-    new ProgressPlugin((percentage, _message) => {
-      if (percentage === 1) {
-        console.log('🚀 Build finished! 🚀');
-      }
     }),
   ].filter(Boolean),
   resolve: {
